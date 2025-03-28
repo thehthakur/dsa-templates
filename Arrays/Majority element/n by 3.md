@@ -60,19 +60,16 @@ def extended_boyer_moore(nums: List[int]) -> List[int]:
 
     # First pass: Find potential candidates
     for num in nums:
-        # First priority: Increment count
-        if candidate1 == num:
-            count1 += 1
-        elif candidate2 == num:
-            count2 += 1
-        # Second priority: Handle case where count == 0
-        elif count1 == 0:
-            candidate1 = num
+        if count1 == 0 and candidate2 != num:
             count1 = 1
-        elif count2 == 0:
-            candidate2 = num
+            candidate1 = num
+        elif count2 == 0 and candidate1 != num:
             count2 = 1
-        # Third priority: Decrement count
+            candidate2 = num
+        elif num == candidate1:
+            count1 += 1
+        elif num == candidate2:
+            count2 += 1
         else:
             count1 -= 1
             count2 -= 1
