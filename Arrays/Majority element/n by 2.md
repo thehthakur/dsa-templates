@@ -26,7 +26,7 @@ The **majority element** is the element that appears more than ⌊n / 2⌋ times
 - `1 <= n <= 5 * 10^4`
 - `-10^9 <= nums[i] <= 10^9`
 
-**Requirement:** Solve the problem in **linear time** and in **O(1) space**?
+**Requirement:** Solve the problem in **linear time** and in **O(1) space**
 
 **Boyer–Moore Majority Voting Algorithm**
 
