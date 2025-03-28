@@ -36,14 +36,11 @@ def majorityElement(nums: List[int]) -> int:
     count: int = 0
 
     for num in nums:
-        # First priority: Increment count
-        if candidate == num:
-            count += 1
-        # Second priority: Handle case where count == 0
-        elif count == 0:
+        if count == 0:
+            count = 1
             candidate = num
-            count =1
-        # Third priority: Decrement count
+        elif num == candidate:
+            count += 1
         else:
             count -= 1
 
