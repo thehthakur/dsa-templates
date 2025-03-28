@@ -26,9 +26,7 @@ The **majority element** is the element that appears more than ⌊n / 2⌋ times
 - `1 <= n <= 5 * 10^4`
 - `-10^9 <= nums[i] <= 10^9`
 
-## Follow-up:
-
-Could you solve the problem in **linear time** and in **O(1) space**?
+**Requirement:** Solve the problem in **linear time** and in **O(1) space**?
 
 **Boyer–Moore Majority Voting Algorithm**
 
@@ -40,6 +38,7 @@ def majorityElement(nums: List[int]) -> int:
     for num in nums:
         if count == 0:
             candidate = num
+        # increment count if num == candidate, decrement it otherwise
         count += (1 if num == candidate else -1)
 
     # Verify that candidate is actually a majority element
