@@ -1,72 +1,49 @@
-Given an array of N integers, write a program to return an element that occurs more than N/2 times in the given array. You may consider that such an element always exists in the array.
+# [Majority Element](https://leetcode.com/problems/majority-element/description/)
 
-Example 1:
-Input Format
-: N = 3, nums[] = {3,2,3}
-Result
-: 3
-Explanation
-: When we just count the occurrences of each number and compare with half of the size of the array, you will get 3 for the above solution. 
+Given an array `nums` of size `n`, return the majority element.
 
-Example 2:
-Input Format:
-  N = 7, nums[] = {2,2,1,1,1,2,2}
+The **majority element** is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
 
-Result
-: 2
+## Example 1:
 
-Explanation
-: After counting the number of times each element appears and comparing it with half of array size, we get 2 as result.
+**Input:**  
+`nums = [3,2,3]`
 
-Example 3:
-Input Format:
-  N = 10, nums[] = {4,4,2,4,3,4,4,3,2,4}
+**Output:**  
+`3`
 
-Result
-: 4
+## Example 2:
 
+**Input:**  
+`nums = [2,2,1,1,1,2,2]`
 
-**Moore’s Voting Algorithm**
-```cpp
+**Output:**  
+`2`
 
+## Constraints:
 
+- `n == nums.length`
+- `1 <= n <= 5 * 10^4`
+- `-10^9 <= nums[i] <= 10^9`
 
-#include <bits/stdc++.h>
-using namespace std;
+## Follow-up:
 
-int majorityElement(vector<int> v) {
+Could you solve the problem in **linear time** and in **O(1) space**?
 
-    //size of the given array:
-    int n = v.size();
-    int cnt = 0; // count
-    int el; // Element
+**Boyer–Moore Majority Voting Algorithm**
 
-    //applying the algorithm:
-    for (int i = 0; i < n; i++) {
-        if (cnt == 0) {
-            cnt = 1;
-            el = v[i];
-        }
-        else if (el == v[i]) cnt++;
-        else cnt--;
-    }
+```python
+def majorityElement(nums: List[int]) -> int:
+    candidate: Optional[int] = None
+    count: int = 0
 
-    //checking if the stored element
-    // is the majority element:
-    int cnt1 = 0;
-    for (int i = 0; i < n; i++) {
-        if (v[i] == el) cnt1++;
-    }
+    for num in nums:
+        if count == 0:
+            candidate = num
+        count += (1 if num == candidate else -1)
 
-    if (cnt1 > (n / 2)) return el;
-    return -1;
-}
-
-int main()
-{
-    vector<int> arr = {2, 2, 1, 1, 1, 2, 2};
-    int ans = majorityElement(arr);
-    cout << "The majority element is: " << ans << endl;
-    return 0;
-}
+    # Verify that candidate is actually a majority element
+    if nums.count(candidate) > len(nums) // 2:
+        return candidate
+    return -1
 ```
