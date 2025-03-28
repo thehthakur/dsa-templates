@@ -13,6 +13,8 @@ If there is no common prefix, return an empty string `""`.
 
 ## Horizontal Scanning:
 
+**Idea**: Take two strings and compare each character in them. Then move on and pick two other strings and so on
+
 ```python
 def longestCommonPrefix(strs: List[str]) -> str:
         if len(strs) == 0:
@@ -29,6 +31,8 @@ def longestCommonPrefix(strs: List[str]) -> str:
 ```
 
 ## Vertical Scanning:
+
+**Idea**: Pick an index, check every character at that index for all strings in the list. Move on to the next index
 
 ```python
 def longestCommonPrefix(strs: List[str]) -> str:
