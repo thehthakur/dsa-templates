@@ -1,8 +1,7 @@
-## Merge Intervals
+## [Merge Intervals](https://leetcode.com/problems/merge-intervals/description/)
 
 Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
- 
 Example 1:
 
 Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
@@ -11,7 +10,6 @@ Output: [[1,6],[8,10],[15,18]]
 
 Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
 
-
 Example 2:
 
 Input: intervals = [[1,4],[4,5]]
@@ -19,7 +17,6 @@ Input: intervals = [[1,4],[4,5]]
 Output: [[1,5]]
 
 Explanation: Intervals [1,4] and [4,5] are considered overlapping.
- 
 
 Constraints:
 
@@ -29,62 +26,57 @@ intervals[i].length == 2
 
 0 <= starti <= endi <= 104
 
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        merged: List[List[int]] = []
 
-```
-class Solution {
-public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        int n = intervals.size();
-        vector<vector<int>>ans;
-        sort(intervals.begin() , intervals.end());
-        int start = intervals[0][0];
-        int end = intervals[0][1];
+        current_start = intervals[0][0]
+        current_end = intervals[0][1]
 
-        for (int i=1; i<n; i++)
-        {
-            if (intervals[i][0] <= end)
-                end = max(end, intervals[i][1]);
-            else
-            {
-                ans.push_back({start, end});
-                start = intervals[i][0];
-                end = intervals[i][1];
-            }
-        }
-        ans.push_back({start, end});
-        return ans;
-    }
-};
+        for i in range(1, len(intervals)):
+            next_start = intervals[i][0]
+            next_end = intervals[i][1]
+
+            if next_start <= current_end:
+                current_end = max(current_end, next_end)
+            else:
+                merged.append([current_start, current_end])
+                current_start = next_start
+                current_end = next_end
+
+        merged.append([current_start, current_end])
+        return merged
 ```
 
 ## Maximum CPU Load from the given list of jobs
-Given an array of jobs with different time requirements, where each job consists of start time, end time and CPU load. 
+
+Given an array of jobs with different time requirements, where each job consists of start time, end time and CPU load.
 
 The task is to find the maximum CPU load at any time if all jobs are running on the same machine.
 
-Examples: 
+Examples:
 
-Input: jobs[] = {{1, 4, 3}, {2, 5, 4}, {7, 9, 6}} 
+Input: jobs[] = {{1, 4, 3}, {2, 5, 4}, {7, 9, 6}}
 
-Output: 7 
+Output: 7
 
-Explanation: 
+Explanation:
 
-In the above-given jobs, there are two jobs which overlaps. 
+In the above-given jobs, there are two jobs which overlaps.
 
-That is, Job [1, 4, 3] and [2, 5, 4] overlaps for the time period in [2, 4] 
+That is, Job [1, 4, 3] and [2, 5, 4] overlaps for the time period in [2, 4]
 
 Hence, the maximum CPU Load at this instant will be maximum (3 + 4 = 7).
 
+Input: jobs[] = {{6, 7, 10}, {2, 4, 11}, {8, 12, 15}}
 
+Output: 15
 
-Input: jobs[] = {{6, 7, 10}, {2, 4, 11}, {8, 12, 15}} 
+Explanation:
 
-Output: 15 
-
-Explanation: 
-
-Since, There are no jobs that overlaps. 
+Since, There are no jobs that overlaps.
 
 Maximum CPU Load will be – max(10, 11, 15) = 15
 
@@ -148,7 +140,7 @@ int maxCpuLoad(vector<Job> v)
 int main() {
 	vector<Job> v = {
 		{6, 7, 10},
-		{2, 4, 11}, 
+		{2, 4, 11},
 		{8, 12, 15}
 	};
 	cout << maxCpuLoad(v);
@@ -158,23 +150,24 @@ int main() {
 
 ```
 
-Similar: 
-Car Pooling 
+Similar:
+Car Pooling
 https://leetcode.com/problems/car-pooling/
 
 ## [Merge Overlapping Intervals: ](https://leetcode.com/problems/non-overlapping-intervals/description/)
-Minimum of intervals needed to remove to make all the intervals non overlapping. 
+
+Minimum of intervals needed to remove to make all the intervals non overlapping.
 
 ## [Minimum Number of Arrows to Burst Balloons](https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/description/)
-There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.
 
+There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.
 
 Arrows can be shot up directly vertically (in the positive y-direction) from different points along the x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
 
-
 Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
 
-### Approach: 
+### Approach:
+
 Sort intervals by end time. Always burst 1st ballon. Maintain index of last arrow, which is end of 1st interval for now. run a loop to detect that if the next intervals start before index of last arrow, if yes means they are burst ignore that interval. Otherwise, burst the baloon by putting next arrow on end of that interval. And update last arrow index.
 
 ```cpp
@@ -200,4 +193,3 @@ public:
     }
 };
 ```
-
