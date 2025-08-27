@@ -74,10 +74,13 @@ class DoublyLinkedList:
             return
         if self.search(val):  # avoid duplicates
             return
-        curr = self.head
-        while curr.next:
-            curr = curr.next
-        curr.next = Node(val, curr)
+
+        curr_first_node: Node = self.head
+        new_node: Node = Node(val, None, curr_first_node)
+        curr_first_node.prev = new_node
+
+        # Update head
+        self.head = new_node
 
     def delete(self, val: int) -> None:
         node = self.search(val)
